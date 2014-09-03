@@ -1,0 +1,69 @@
+14 pivots.
+1: a
+   aj 1
+   al 1
+   as 1
+1: aba
+   aban 1
+   abas 1
+   abba 1
+1: ababa
+   abada 1
+   ababas 1
+   ababan 1
+1: albardeares
+   albardeares 0
+   alardeares 1
+   albardares 1
+1: alotransplanten
+   alotransplanten 0
+   alotransplantan 1
+   alotransplante 1
+1: anhelo
+   anhelo 0
+   angelo 1
+   anhela 1
+1: azulejaras
+   azulejaras 0
+   azulearas 1
+   azulejabas 1
+1: consignarse
+   consignarse 0
+   consignare 1
+   consignarle 1
+1: envallicado
+   envallicado 0
+   envallicad 1
+   envallicada 1
+1: hinchiéndosela
+   hinchiéndosela 0
+   hinchiéndomela 1
+   hinchiéndoselas 1
+1: informativa
+   informativa 0
+   informativas 1
+   informativo 1
+1: optimizárnoslos
+   optimizárnoslos 0
+   optimizárnoslas 1
+   optimizárnosles 1
+1: perfunctorio
+   perfunctorio 0
+   perfunctoria 1
+   perfunctorios 1
+1: preñármelos
+   preñármelos 0
+   preñármelas 1
+   preñármeles 1
+1: red
+   red 0
+   led 1
+   rad 1
+1: rehilaremos
+   rehilaremos 0
+   redilaremos 1
+   rehiláremos 1
+1: vetase
+   vetase 0
+   petase 1
+   retase 1

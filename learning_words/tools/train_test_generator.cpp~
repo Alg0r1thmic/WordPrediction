@@ -1,0 +1,66 @@
+#include <fstream>
+#include <iostream>
+#include <locale>
+#include <clocale>
+#include <vector>
+#include <ctime>
+#include <set>
+#include <stdio.h>      /* printf, scanf, puts, NULL */
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
+using namespace std;
+
+int has_h(wstring s) {
+	for (int i=0; i<s.size(); i++) {
+		if (s[i] == 'h') return 1;
+	}
+	return 0;
+}
+
+int main() {
+
+	/* initialize random seed: */
+  	srand (time(NULL));
+
+	// open the stream
+	//std::wifstream fdict("words-lemas_processed.txt", std::ifstream::in);	
+
+	std::wifstream fdict("../difficult_words.txt", std::ifstream::in);
+	std::locale loc ("");
+	std::locale::global (loc);   
+	fdict.imbue (loc);
+
+	std::wifstream fdict2("../easy_words.txt", std::ifstream::in);  
+	fdict2.imbue (loc);
+
+	std::wofstream fdict3("../difficult_words_train.txt", std::ofstream::out);
+	fdict3.imbue (loc);
+
+	std::wofstream fdict4("../difficult_words_test.txt", std::ofstream::out);
+	fdict4.imbue (loc);
+
+	std::wofstream fdict5("../easy_words_train.txt", std::ofstream::out);
+	fdict5.imbue (loc);
+
+	std::wofstream fdict6("../easy_words_test.txt", std::ofstream::out);
+	fdict6.imbue (loc);
+ 
+	for(wstring s; getline(fdict,s);) {
+		int r = rand()%10;
+		if (r == 9) fdict4 << s << L"\n";
+		else fdict3 << s << L"\n";	
+	}
+
+	for(wstring s; getline(fdict2,s);) {
+		int r = rand()%10;
+		if (r == 9) fdict4 << s << L"\n";
+		else fdict3 << s << L"\n";	
+	}
+
+	fdict.close();
+	fdict2.close();
+	fdict3.close();
+	fdict4.close();
+	fdict5.close();
+	fdict6.close();
+}

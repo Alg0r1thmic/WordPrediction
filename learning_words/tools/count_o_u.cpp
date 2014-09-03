@@ -1,0 +1,71 @@
+#include <fstream>
+#include <iostream>
+#include <locale>
+#include <clocale>
+#include <vector>
+#include <ctime>
+#include <set>
+using namespace std;
+
+bool has_u(wstring s) {
+	wchar_t ua = 'ú';
+	int u = 0;
+	for (int i=0; i<s.size(); i++)
+		if (s[i] == 'u' or s[i] == 'ú') u++;
+	return u>0;
+}
+
+bool has_o(wstring s) {
+	wchar_t oa = 'ó';
+	int o = 0;
+	for (int i=0; i<s.size(); i++)
+		if (s[i] == 'o' or s[i] == 'ó') o++;
+	return o>0;
+}
+
+int main() {
+
+	// open the stream
+	//std::wifstream fdict("words-lemas_processed.txt", std::ifstream::in);	
+
+	std::wifstream fdict("../sets/difficult_words_unique.txt", std::ifstream::in);
+	std::locale loc ("");
+	std::locale::global (loc);   
+	fdict.imbue (loc);
+	
+	std::wifstream fdict2("../sets/easy_words.txt", std::ifstream::in);
+	fdict2.imbue (loc);
+
+	int count_o = 0;
+	int count_u = 0;
+	int total = 0;
+	int both = 0;
+	
+	// read and insert the dictionary   
+	for(wstring s; getline(fdict,s); total++) {
+		if (has_u(s)) count_u++;
+		if (has_o(s)) count_o++;
+		if (has_o(s) and has_u(s)) both++;
+	}
+
+	wcout << "Out of " << total << " difficult words, " << count_u << " have u's. Percentage: " << double(count_u)/total << L"\n"; 
+	wcout << "Out of " << total << " difficult words, " << count_o << " have o's. Percentage: " << double(count_o)/total << L"\n"; 
+	wcout << "Out of " << total << " difficult words, " << both << " have o's and u's. Percentage: " << double(both)/total << L"\n"; 
+
+
+	fdict.close();
+	
+	count_o = count_u = total = both = 0;
+
+	// read and insert the dictionary   
+	for(wstring s; getline(fdict2,s); total++) {
+		if (has_u(s)) count_u++;
+		if (has_o(s)) count_o++;
+		if (has_o(s) and has_u(s)) both++;
+	}
+	
+	wcout << "Out of " << total << " easy words, " << count_u << " have u's. Percentage: " << double(count_u)/total << L"\n"; 
+	wcout << "Out of " << total << " easy words, " << count_o << " have o's. Percentage: " << double(count_o)/total << L"\n"; 
+	wcout << "Out of " << total << " easy words, " << both << " have o's and u's. Percentage: " << double(both)/total << L"\n"; 
+
+}

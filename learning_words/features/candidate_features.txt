@@ -1,0 +1,6 @@
+-average word length - GOOD
+-has H or not has H - GOOD
+-has ACCENT or not has ACCENT - mmm not good enough
+-has double letter or not has double letter - quite good   /*COMMENT: hi ha paraules que apareixen com a fàcils i difícils alhora!! */
+-ends with vowel or not - BAD
+-number of valid words at distance 1 - 

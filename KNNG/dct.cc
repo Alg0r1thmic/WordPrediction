@@ -1,0 +1,140 @@
+#include <vector>
+#include <map>
+#include <queue>
+#include <stdio.h>      /* printf, scanf, puts, NULL */
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
+using namespace std;
+
+template <class T>
+class dct_tree {
+    
+    public:
+        dct_tree(const vector<T>& S, int (*d)(const T& x, const T& y)) {
+		/* initialize random seed: */
+  		srand (time(NULL));
+		root = new Node(NULL, S, 99999);
+		distance = d;		
+	}       
+        
+        ~bk_tree() { if (root != NULL) delete root; }
+        
+        int get_within_distance(const T& q, int r, vector<T> *result) const;
+
+	int count_within_distance(const T& q, int r) const;
+        
+        void insert(const T& x);
+        
+        int size() const { return elements; }
+  
+        bool empty() const { return !elements; }
+
+        bool count(const T &q) const { return get_within_distance(q, 0); }
+        
+    private:
+        class Node {
+            public:
+		Node p;
+		Node l;
+		Node r;
+		int pr;
+
+		Node(Node& pa, const vector<T>& S, int dp) {
+			this->p = pa;
+			this->pr = dp;
+			pair<int,int> p = find_u_v(S);
+			split(S,p.first,p.second,Su,Sv,du,dv);
+			Node left = new Node(this,Su,du);
+		}
+        };
+        
+        Node *root;
+        int (*distance)(const T& x, const T& y);
+
+	private pair<int,int> find_u_v(const vector<T>& S) {
+		int n = S.size();
+		int u,v;
+		u = 0; v = 1;
+		int max = -1;
+		for (int i=0; i<n/2; i++) {
+			int a = rand()%n;
+			int b = rand()%n;
+			int d = distance(S[a],S[b]);
+			if (d > max) {
+				max = d;
+				u = a;
+				v = b;
+			}
+		}
+		pair<int,int> p;
+		p.first = u; p.second = v;
+		return p;
+	}
+};
+
+template <class T>
+int bk_tree<T>::get_within_distance(const T& q, int r, vector<T> *result) const {
+    if (!root) return 0;
+    int qtt = 0;
+    queue<Node*> Q;
+    Q.push(root);
+    while (not Q.empty()) {
+        Node *p = Q.front(); Q.pop();
+        int d = distance(q, p->x);
+        if (d <= r) {
+            ++qtt;
+            if (result) result->push_back(p->x);
+        }
+        map<int, void*>::iterator it = p->edge.upper_bound(d + r);
+        if (it != p->edge.begin()) {
+            for (--it; it->first >= d - r; --it) {
+                Q.push((Node*)(it->second));
+                if (it == p->edge.begin()) break;
+            }
+        }
+    }
+    return qtt;
+}
+
+template <class T>
+int bk_tree<T>::count_within_distance(const T& q, int r) const {
+    if (!root) return 0;
+    int qtt = 0;
+    queue<Node*> Q;
+    Q.push(root);
+    while (not Q.empty()) {
+        Node *p = Q.front(); Q.pop();
+        int d = distance(q, p->x);
+        if (d <= r) {
+            ++qtt;
+        }
+        map<int, void*>::iterator it = p->edge.upper_bound(d + r);
+        if (it != p->edge.begin()) {
+            for (--it; it->first >= d - r; --it) {
+                Q.push((Node*)(it->second));
+                if (it == p->edge.begin()) break;
+            }
+        }
+    }
+    return qtt;
+}
+
+template <class T>
+void bk_tree<T>::insert(const T& x) {
+    if (root) {
+        Node *p = root;
+        while (p) {
+            int d = distance(x, p->x);
+            if (d == 0) return;
+            if (p->edge.count(d)) p = (Node*)(p->edge[d]);
+            else {
+                p = ((Node*)(p->edge[d] = new Node(x)));
+                ++elements;
+            }
+        }
+    }
+    else {
+        root = new Node(x);
+        ++elements;
+    }
+}

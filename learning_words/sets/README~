@@ -1,0 +1,22 @@
+difficult_words.arff: list of difficult words processed with p1.cpp
+difficult_words.txt: list of difficult words
+difficult_words_test.txt: test set for difficult words
+difficult_words_train.txt: train set for difficult words
+easy.txt: first group of easy words that Ricardo sent me
+easy2.txt: second group of easy words that Ricardo sent me
+easy_words.txt: merge of the 2 easy sets above avoiding repetitions and filtered the ones that apear also as difficult
+easy_words_non_correct.txt: easy_words.txt non filtered
+easy_words_test.txt: test for easy words
+easy_words_train.txt: train for easy words
+ops-stats-norm.txt: most common mistakes made by dislexics
+test_set.arff: test set of all difficult and easy words processed with p1.cpp (artificially balanced)
+training_set.arff: training set of all difficult and easy words processed with p1.cpp (artificially balanced)
+words_full_set.arff: whole difficult and easy words processed with p1.cpp. No need to separate between train and test when you can use fold 10.
+words_full_set_artificially_balanced.arff: the same than above but copy pasted easy words to balance the proportion with difficult words
+words_full_set_p2.arff: whole difficult and easy words processed with p2.cpp. No need to separate between train and test when you can use fold 10.
+words_full_set_p2_artificially_balanced.arff: the same than above but copy pasted easy words to balance the proportion with difficult words
+words_full_set_p3.arff: whole difficult and easy words processed with p3.cpp. No need to separate between train and test when you can use fold 10.
+words_full_set_p3_artificially_balanced.arff: the same than above but copy pasted easy words to balance the proportion with difficult words
+words_full_set_p3_artificially_balanced_down.arff: The set word_full_set_p3.arff where we only kept the first 113 (more or less) first positive samples to balance against the negative ones.
+test_easy_luz.txt: les noves paraules facils que va enviar la Luz.
+test_easy_luz2.txt: les noves paraules facils que va enviar la Luz + 30 paraules dificils afegides copiant i pegant dun fitxer de dificils analitzades amb p3.
